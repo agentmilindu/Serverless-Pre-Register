@@ -1,0 +1,143 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Maturify resources",
+  "Parameters": {
+    "aaProjectName": {
+      "Type": "String",
+      "AllowedValues": [
+        "Maturify"
+      ],
+      "Default": "Maturify"
+    },
+    "aaProjectDomain": {
+      "Type": "String",
+      "Default": "pre-reg.maturify.com"
+    },
+    "aaStage": {
+      "Type": "String",
+      "AllowedValues": [
+        "development"
+      ]
+    },
+    "aaDataModelStage": {
+      "Type": "String",
+      "AllowedValues": [
+        "development"
+      ]
+    },
+    "aaNotficationEmail": {
+      "Type": "String",
+      "Default": "agentmilindu@gmail.com"
+    },
+    "aaDefaultDynamoRWThroughput": {
+      "Type": "String",
+      "Default": "1"
+    }
+  },
+  "Resources": {
+    "IamRoleLambda": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/"
+      }
+    },
+    "IamInstanceProfileLambda": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Ref": "IamRoleLambda"
+          }
+        ]
+      }
+    },
+    "IamGroupLambda": {
+      "Type": "AWS::IAM::Group",
+      "Properties": {
+        "Path": "/"
+      }
+    },
+    "IamPolicyLambda": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": {
+          "Fn::Join": [
+            "_-_",
+            [
+              {
+                "Ref": "aaStage"
+              },
+              {
+                "Ref": "aaProjectName"
+              },
+              "lambda"
+            ]
+          ]
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  ":",
+                  [
+                    "arn:aws:logs",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "*:*"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "IamRoleLambda"
+          }
+        ],
+        "Groups": [
+          {
+            "Ref": "IamGroupLambda"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "IamRoleArnLambda": {
+      "Description": "ARN of the lambda IAM role",
+      "Value": {
+        "Fn::GetAtt": [
+          "IamRoleLambda",
+          "Arn"
+        ]
+      }
+    }
+  }
+}

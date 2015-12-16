@@ -1,0 +1,21 @@
+{
+  "name": "Maturify",
+  "version": "0.0.1",
+  "profile": "serverless-0",
+  "location": "https://github.com/...",
+  "author": "",
+  "description": "",
+  "domain": "pre-reg.maturify.com",
+  "stages": {
+    "development": [
+      {
+        "region": "us-west-2",
+        "iamRoleArnLambda": "arn:aws:iam::018441430035:role/Maturify-development-r-IamRoleLambda-159DF4BI4F1OV",
+        "regionBucket": "serverless.uswest2.pre-reg.maturify.com",
+        "restApiId": "bjpop44b12"
+      }
+    ]
+  },
+  "custom": {},
+  "plugins": []
+}

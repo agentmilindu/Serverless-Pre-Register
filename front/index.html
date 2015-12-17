@@ -88,9 +88,24 @@
     <script src="static/jquery/jquery.js"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
+    $.fn.serializeObject = function()
+	{
+    		var o = {};
+    		var a = this.serializeArray();
+    		$.each(a, function() {
+        		if (o[this.name] !== undefined) {
+            			if (!o[this.name].push) {
+                			o[this.name] = [o[this.name]];
+            			}	
+            			o[this.name].push(this.value || '');
+        		} else {
+            		o[this.name] = this.value || '';
+        		}
+   		});
+    		return o;
+	};
       $("#signup").click(function() {
-        $.post( "https://bjpop44b12.execute-api.us-west-2.amazonaws.com/development/user/signup", $("#signupForm").serialize(),
+        $.post( "https://symwskpysk.execute-api.us-west-2.amazonaws.com/mat/user/signup", $("form").serializeObject(),
                 function(data) {
                   $("#signupSuccess").show();
                 }

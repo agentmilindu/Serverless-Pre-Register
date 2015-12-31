@@ -12,7 +12,15 @@
         "region": "us-west-2",
         "iamRoleArnLambda": "arn:aws:iam::018441430035:role/Maturify-development-r-IamRoleLambda-159DF4BI4F1OV",
         "regionBucket": "serverless.uswest2.pre-reg.maturify.com",
-        "restApiId": "bjpop44b12"
+        "restApiId": "symwskpysk"
+      }
+    ],
+    "mat": [
+      {
+        "region": "us-west-2",
+        "iamRoleArnLambda": "arn:aws:iam::018441430035:role/Maturify-mat-r-IamRoleLambda-1CL0DWL77HJRW",
+        "regionBucket": "serverless.uswest2.pre-reg.maturify.com",
+        "restApiId": "symwskpysk"
       }
     ]
   },

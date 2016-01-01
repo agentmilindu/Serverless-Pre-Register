@@ -12,6 +12,7 @@
   "keywords": [],
   "devDependencies": {},
   "dependencies": {
+    "nodegit": "^0.6.3",
     "serverless-helpers-js": "~0.0.3"
   }
 }

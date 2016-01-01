@@ -46,20 +46,21 @@ module.exports.handler = function(event, context) {
             }
             else {
                 console.log('great success: ' + JSON.stringify(data, null, '  '));
-                context.done({
-                    "name": {
-                        "S": event.name
-                    },
-                    "email": {
-                        "S": event.email
-                    },
-                    "previewAccess": {
-                        "S": event.previewAccess
-                    },
-                    "date": {
-                        "S": datetime
-                    }
-                });
+                // context.done({
+                //     "name": {
+                //         "S": event.name
+                //     },
+                //     "email": {
+                //         "S": event.email
+                //     },
+                //     "previewAccess": {
+                //         "S": event.previewAccess
+                //     },
+                //     "date": {
+                //         "S": datetime
+                //     }
+                // });
+                context.succeed('OK');
             }
         });
     });

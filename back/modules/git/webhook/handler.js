@@ -14,27 +14,38 @@ var ServerlessHelpers = require('serverless-helpers-js').loadEnv();
 var lib = require('../lib');
 
 var AWS = require('aws-sdk');
-var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+var dynamodb = new AWS.DynamoDB({
+  apiVersion: '2012-08-10'
+});
+
+var Git = require("nodegit");
 
 
 // Lambda Handler
 module.exports.handler = function(event, context) {
   var tableName = "Git";
   var datetime = new Date().getTime().toString();
-  dynamodb.putItem({
-        "TableName": tableName,
-        "Item" : {
-            "id": {"S": Date.now().toString() },
-            "json": {"S": JSON.stringify(event) }
+
+  Git.Clone("https://github.com/agentmilindu/Serverless-Pre-Register.git ", "tmp").then(function(repository) {
+    dynamodb.putItem({
+      "TableName": tableName,
+      "Item": {
+        "id": {
+          "S": Date.now().toString()
+        },
+        "json": {
+          "S": JSON.stringify(repository)
         }
+      }
     }, function(err, data) {
-        if (err) {
-            context.done('error','putting item into dynamodb failed: '+err+" "+event.name);
-            console.log('great success: '+JSON.stringify(err, null, '  '));
-        }
-        else {
-            console.log('great success: '+JSON.stringify(data, null, '  '));
-            context.done('OK');
-        }
+      if (err) {
+        context.done('error', 'putting item into dynamodb failed: ' + err + " " + event.name);
+        console.log('great success: ' + JSON.stringify(err, null, '  '));
+      }
+      else {
+        console.log('great success: ' + JSON.stringify(data, null, '  '));
+        context.done('OK');
+      }
     });
+  });
 };

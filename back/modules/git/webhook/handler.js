@@ -40,7 +40,7 @@ module.exports.handler = function(event, context) {
     }, function(err, data) {
       if (err) {
         context.done('error', 'putting item into dynamodb failed: ' + err + " " + event.name);
-        console.log('great success: ' + JSON.stringify(err, null, '  '));
+        console.log('error: ' + JSON.stringify(err, null, '  '));
       }
       else {
         console.log('great success: ' + JSON.stringify(data, null, '  '));

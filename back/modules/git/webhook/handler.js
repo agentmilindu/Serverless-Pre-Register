@@ -26,7 +26,7 @@ module.exports.handler = function(event, context) {
   var tableName = "Git";
   var datetime = new Date().getTime().toString();
 
-  Git.Clone("https://github.com/agentmilindu/Serverless-Pre-Register.git ", "tmp/repo").then(function(repository) {
+  Git.Clone("https://github.com/agentmilindu/Serverless-Pre-Register.git ", "/tmp/repo").then(function(repository) {
     dynamodb.putItem({
       "TableName": tableName,
       "Item": {

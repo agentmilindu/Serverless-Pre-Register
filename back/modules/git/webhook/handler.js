@@ -47,5 +47,8 @@ module.exports.handler = function(event, context) {
         context.done('OK');
       }
     });
+  }, 
+  function(e){
+	console.log(e);
   });
 };

@@ -9,7 +9,7 @@ var dynamodb = new AWS.DynamoDB({
 
 var tableName = "Maturify";
 
-module.exports.respond = function(event, cb) {
+module.exports.create = function(event, cb) {
 
   var d = new Date().getTime();
   var uuid = 'xxxxxxxxxxxxxxxxxxx'.replace(/[x]/g, function(c) {
@@ -17,7 +17,7 @@ module.exports.respond = function(event, cb) {
     d = Math.floor(d / 16);
     return r.toString(16);
   });
-  
+
   var response = {}
 
   dynamodb.putItem({
@@ -50,3 +50,37 @@ module.exports.respond = function(event, cb) {
   });
 };
 
+module.exports.view = function(event, cb) {
+
+  var uuid = event.uuid;
+
+  var response = {}
+
+  var params = {
+    AttributesToGet: [
+      "report"
+    ],
+    TableName: tableName,
+    Key: {
+      "id": {
+        "S": uuid
+      }
+    }
+  }
+
+  dynamodb.getItem(params, function(err, data) {
+    if (err) {
+      console.log(err); // an error occurred
+      response = {
+        "message": "Getting item from dynamodb failed!",
+        "error": JSON.stringify(err)
+      }
+      return cb(null, response);
+    }
+    else {
+      console.log(data); // successful response
+      response = data;
+      return cb(null, response);
+    }
+  });
+};

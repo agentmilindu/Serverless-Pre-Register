@@ -1,0 +1,39 @@
+{
+  "functions": {
+    "ReportView": {
+      "custom": {
+        "excludePatterns": [],
+        "envVars": []
+      },
+      "handler": "modules/report/view/handler.handler",
+      "timeout": 6,
+      "memorySize": 1024,
+      "endpoints": {
+        "report/view": {
+          "method": "GET",
+          "authorizationType": "none",
+          "apiKeyRequired": false,
+          "requestParameters": {},
+          "requestTemplates": {
+            "application/json": ""
+          },
+          "responses": {
+            "400": {
+              "statusCode": "400"
+            },
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {},
+              "responseModels": {},
+              "responseTemplates": {
+                "application/json": ""
+              }
+            }
+          }
+        }
+      },
+      "pathFunction": "/home/ubuntu/workspace/Maturify/back/modules/report/view/s-function.json",
+      "name": "view"
+    }
+  }
+}

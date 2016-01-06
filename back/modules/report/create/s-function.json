@@ -1,6 +1,6 @@
 {
   "functions": {
-    "ReportCreate": {
+    "create": {
       "custom": {
         "excludePatterns": [],
         "envVars": []
@@ -8,8 +8,10 @@
       "handler": "modules/report/create/handler.handler",
       "timeout": 6,
       "memorySize": 1024,
-      "endpoints": {
-        "report/create": {
+      "eventSourceArn": "",
+      "endpoints": [
+        {
+          "path": "report/create",
           "method": "POST",
           "authorizationType": "none",
           "apiKeyRequired": false,
@@ -31,9 +33,7 @@
             }
           }
         }
-      },
-      "pathFunction": "/home/ubuntu/workspace/maturify-backend/back/modules/report/create/s-function.json",
-      "name": "create"
+      ]
     }
   }
 }

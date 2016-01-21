@@ -104,7 +104,7 @@ module.exports.signup = function(event, cb) {
 
 };
 
-module.exports.prereg = function(event, context) {
+module.exports.prereg = function(event, cb) {
   var tableName = "pre-regs";
   dynamodb.putItem({
     "TableName": tableName,

@@ -1,6 +1,6 @@
 {
   "functions": {
-    "UserSignup": {
+    "signup": {
       "custom": {
         "excludePatterns": [],
         "envVars": []
@@ -8,8 +8,10 @@
       "handler": "modules/user/signup/handler.handler",
       "timeout": 6,
       "memorySize": 1024,
-      "endpoints": {
-        "user/signup": {
+      "eventSourceArn": "",
+      "endpoints": [
+        {
+          "path": "user/signup",
           "method": "POST",
           "authorizationType": "none",
           "apiKeyRequired": false,
@@ -31,9 +33,7 @@
             }
           }
         }
-      },
-      "pathFunction": "/home/ubuntu/workspace/Maturify1/back/modules/user/signup/s-function.json",
-      "name": "signup"
+      ]
     }
   }
 }

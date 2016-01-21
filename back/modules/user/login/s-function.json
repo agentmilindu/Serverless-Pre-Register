@@ -1,6 +1,6 @@
 {
   "functions": {
-    "UserLogin": {
+    "login": {
       "custom": {
         "excludePatterns": [],
         "envVars": []
@@ -8,8 +8,10 @@
       "handler": "modules/user/login/handler.handler",
       "timeout": 6,
       "memorySize": 1024,
-      "endpoints": {
-        "user/login": {
+      "eventSourceArn": "",
+      "endpoints": [
+        {
+          "path": "user/login",
           "method": "POST",
           "authorizationType": "none",
           "apiKeyRequired": false,
@@ -31,9 +33,7 @@
             }
           }
         }
-      },
-      "pathFunction": "/home/ubuntu/workspace/Maturify/back/modules/user/login/s-function.json",
-      "name": "login"
+      ]
     }
   }
 }

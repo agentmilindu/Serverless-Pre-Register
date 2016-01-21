@@ -1,6 +1,6 @@
 {
   "functions": {
-    "UserSignup": {
+    "UserPrereg": {
       "custom": {
         "excludePatterns": [],
         "envVars": []

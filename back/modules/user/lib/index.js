@@ -92,10 +92,10 @@ module.exports.signup = function(event, cb) {
       }
     }, function(err, data) {
       if (err) {
-        return cb(null, { message: "You got registered successfully!" });
+        return cb(null, { message: "We could not register you successfully!", "error" : err });
       }
       else {
-        return cb(null,  { message: "We could not register you successfully!" });
+        return cb(null,  { message: "You got registered successfully!" });
       }
     });
 
@@ -106,18 +106,14 @@ module.exports.signup = function(event, cb) {
 
 module.exports.prereg = function(event, context) {
   var tableName = "pre-regs";
-  var datetime = new Date().getTime().toString();
   dynamodb.putItem({
     "TableName": tableName,
     "Item": {
-      "name": {
-        "S": event.name
-      },
       "email": {
         "S": event.email
       },
       "date": {
-        "S": datetime
+        "S":  new Date().toString()
       }
     }
   }, function(err, data) {

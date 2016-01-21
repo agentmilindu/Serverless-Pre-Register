@@ -11,7 +11,7 @@
 var ServerlessHelpers = require('serverless-helpers-js').loadEnv();
 
 // Require Logic
-var lib = require('../lib');
+var user = require('../lib');
 
 var AWS = require('aws-sdk');
 var dynamodb = new AWS.DynamoDB({
@@ -21,48 +21,8 @@ var dynamodb = new AWS.DynamoDB({
 
 // Lambda Handler
 module.exports.handler = function(event, context) {
-    lib.respond(event, function(error, response) {
-        var tableName = "pre-regs";
-        var datetime = new Date().getTime().toString();
-        dynamodb.putItem({
-            "TableName": tableName,
-            "Item": {
-                "name": {
-                    "S": event.name
-                },
-                "email": {
-                    "S": event.email
-                },
-                "previewAccess": {
-                    "S": event.previewAccess
-                },
-                "date": {
-                    "S": datetime
-                }
-            }
-        }, function(err, data) {
-            if (err) {
-                context.done('putting item into dynamodb failed: ' + err);
-            }
-            else {
-                console.log('great success: ' + JSON.stringify(data, null, '  '));
-                // context.done({
-                //     "name": {
-                //         "S": event.name
-                //     },
-                //     "email": {
-                //         "S": event.email
-                //     },
-                //     "previewAccess": {
-                //         "S": event.previewAccess
-                //     },
-                //     "date": {
-                //         "S": datetime
-                //     }
-                // });
-                context.succeed('OK');
-            }
-        });
-    });
+  user.signup(event, function(error, response) {
+    return context.done(error, response);
+  });
 
 };

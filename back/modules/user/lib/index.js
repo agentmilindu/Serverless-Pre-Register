@@ -125,11 +125,12 @@ module.exports.prereg = function(event, context) {
     }
   }, function(err, data) {
     if (err) {
-      context.done('putting item into dynamodb failed: ' + err);
+      console.log('putting item into dynamodb failed: ' + JSON.stringify(err, null, '  '));
+      return cb(null, { message: "putting item into dynamodb failed" });
     }
     else {
       console.log('great success: ' + JSON.stringify(data, null, '  '));
-      context.succeed('OK');
+      return cb(null, { message: "great success" });
     }
   });
 

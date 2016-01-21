@@ -21,7 +21,33 @@ var dynamodb = new AWS.DynamoDB({
 
 // Lambda Handler
 module.exports.handler = function(event, context) {
-  user.prereg(event, function(error, response) {
+  prereg(event, function(error, response) {
     return context.done(error, response);
+  });
+};
+
+function prereg = function(event, context) {
+  var tableName = "pre-regs";
+  var datetime = new Date().getTime().toString();
+  dynamodb.putItem({
+    "TableName": tableName,
+    "Item": {
+      "name": {
+        "S": event.name
+      },
+      "email": {
+        "S": event.email
+      },
+      "date": {
+        "S": datetime
+      }
+    }
+  }, function(err, data) {
+    if (err) {
+      return cb(null, { message: "putting item into dynamodb failed" });
+    }
+    else {
+      return cb(null, { message: "great success" });
+    }
   });
 };

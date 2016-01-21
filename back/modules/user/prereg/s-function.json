@@ -9,7 +9,7 @@
       "timeout": 6,
       "memorySize": 1024,
       "endpoints": {
-        "user/signup": {
+        "user/prereg": {
           "method": "POST",
           "authorizationType": "none",
           "apiKeyRequired": false,

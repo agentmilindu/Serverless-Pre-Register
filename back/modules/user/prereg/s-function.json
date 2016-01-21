@@ -1,0 +1,39 @@
+{
+  "functions": {
+    "UserSignup": {
+      "custom": {
+        "excludePatterns": [],
+        "envVars": []
+      },
+      "handler": "modules/user/prereg/handler.handler",
+      "timeout": 6,
+      "memorySize": 1024,
+      "endpoints": {
+        "user/signup": {
+          "method": "POST",
+          "authorizationType": "none",
+          "apiKeyRequired": false,
+          "requestParameters": {},
+          "requestTemplates": {
+            "application/json": ""
+          },
+          "responses": {
+            "400": {
+              "statusCode": "400"
+            },
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {},
+              "responseModels": {},
+              "responseTemplates": {
+                "application/json": ""
+              }
+            }
+          }
+        }
+      },
+      "pathFunction": "/home/ubuntu/workspace/Maturify1/back/modules/user/prereg/s-function.json",
+      "name": "signup"
+    }
+  }
+}

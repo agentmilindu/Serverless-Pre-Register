@@ -11,7 +11,7 @@
 var ServerlessHelpers = require('serverless-helpers-js').loadEnv();
 
 // Require Logic
-var lib = require('../lib');
+var user = require('../lib');
 
 var AWS = require('aws-sdk');
 var dynamodb = new AWS.DynamoDB({

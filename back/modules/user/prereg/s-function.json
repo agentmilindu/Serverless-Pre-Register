@@ -33,7 +33,7 @@
         }
       },
       "pathFunction": "/home/ubuntu/workspace/Maturify1/back/modules/user/prereg/s-function.json",
-      "name": "signup"
+      "name": "prereg"
     }
   }
 }

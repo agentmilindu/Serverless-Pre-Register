@@ -116,20 +116,15 @@ module.exports.prereg = function(event, context) {
       "email": {
         "S": event.email
       },
-      "previewAccess": {
-        "S": event.previewAccess
-      },
       "date": {
         "S": datetime
       }
     }
   }, function(err, data) {
     if (err) {
-      console.log('putting item into dynamodb failed: ' + JSON.stringify(err, null, '  '));
       return cb(null, { message: "putting item into dynamodb failed" });
     }
     else {
-      console.log('great success: ' + JSON.stringify(data, null, '  '));
       return cb(null, { message: "great success" });
     }
   });

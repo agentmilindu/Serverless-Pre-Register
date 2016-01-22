@@ -1,6 +1,6 @@
 {
   "functions": {
-    "ReportView": {
+    "view": {
       "custom": {
         "excludePatterns": [],
         "envVars": []

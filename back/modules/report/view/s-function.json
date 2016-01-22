@@ -8,9 +8,11 @@
       "handler": "modules/report/view/handler.handler",
       "timeout": 6,
       "memorySize": 1024,
-      "endpoints": {
-        "report/view": {
-          "method": "GET",
+      "eventSourceArn": "",
+      "endpoints": [
+        {
+          "path": "report/view",
+          "method": "POST",
           "authorizationType": "none",
           "apiKeyRequired": false,
           "requestParameters": {},
@@ -31,9 +33,7 @@
             }
           }
         }
-      },
-      "pathFunction": "/home/ubuntu/workspace/Maturify/back/modules/report/view/s-function.json",
-      "name": "view"
+      ]
     }
   }
 }

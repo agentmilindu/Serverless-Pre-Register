@@ -30,9 +30,7 @@ module.exports.login = function(event, cb) {
     }
   }
 
-  var myuser = [];
-
-  dynamodb.getItem(params, function(err, passwordHash) {
+  dynamodb.getItem(params, function(err, record) {
     if (err) {
       console.log(err); // an error occurred
       response = {
@@ -42,8 +40,10 @@ module.exports.login = function(event, cb) {
       return cb(null, response);
     }
     else {
+      var response = record;
+      return cb(null, response);
       // Verifying the hash
-      password(event.password).verifyAgainst(passwordHash, function(error, verified) {
+      password(event.password).verifyAgainst(record.Item.password, function(error, verified) {
         if (error)
           throw new Error('Something went wrong!');
         if (!verified) {

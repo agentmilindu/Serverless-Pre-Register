@@ -3,6 +3,10 @@
  */
 
 var AWS = require('aws-sdk');
+var jwt = require('jwt-simple');
+
+var JWTSecret = 'pGkISEaLI3SnDMER7Xz4';
+
 var dynamodb = new AWS.DynamoDB({
   apiVersion: '2012-08-10'
 });
@@ -45,6 +49,7 @@ module.exports.login = function(event, cb) {
         if (error)
           throw new Error('Something went wrong!');
         if (!verified) {
+
           var response = {
             message: "Your username or password did not match!",
             code : 403
@@ -52,9 +57,12 @@ module.exports.login = function(event, cb) {
           return cb(null, response);
         }
         else {
+          var payload = { "email" : email };
+          var token = jwt.encode(payload, secret);
           var response = {
             message: "Logged in successfully!",
-            code : 200
+            code : 200,
+            tocken : token
           };
           return cb(null, response);
         }

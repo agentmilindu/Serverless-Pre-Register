@@ -58,7 +58,7 @@ module.exports.login = function(event, cb) {
         }
         else {
           var payload = { "email" : email };
-          var token = jwt.encode(payload, secret);
+          var token = jwt.encode(payload, JWTSecret);
           var response = {
             message: "Logged in successfully!",
             code : 200,

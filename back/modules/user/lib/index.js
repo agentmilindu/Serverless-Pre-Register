@@ -62,7 +62,7 @@ module.exports.login = function(event, cb) {
           var response = {
             message: "Logged in successfully!",
             code : 200,
-            tocken : token
+            token : token
           };
           return cb(null, response);
         }

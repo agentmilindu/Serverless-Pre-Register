@@ -3,6 +3,8 @@
  */
 
 var AWS = require('aws-sdk');
+var password = require('password-hash-and-salt');
+var cognitoidentity = new AWS.CognitoIdentity();
 var jwt = require('jwt-simple');
 
 var JWTSecret = 'pGkISEaLI3SnDMER7Xz4';
@@ -13,7 +15,6 @@ var dynamodb = new AWS.DynamoDB({
 
 var tableName = "Users";
 
-var password = require('password-hash-and-salt');
 
 
 module.exports.login = function(event, cb) {
@@ -59,12 +60,26 @@ module.exports.login = function(event, cb) {
         else {
           var payload = { "email" : email };
           var token = jwt.encode(payload, JWTSecret);
-          var response = {
-            message: "Logged in successfully!",
-            code : 200,
-            token : token
+
+          var param = {
+            IdentityPoolId: "Maturify OpenID",
+            Logins: {} // To have provider name in a variable
           };
-          return cb(null, response);
+          param.Logins['openid.maturify.com'] = email;
+          cognitoidentity.getOpenIdTokenForDeveloperIdentity(param,
+            function(err, data) {
+              if (err) return fn(err); // an error occurred
+              else {
+                var response = {
+                  message: "Logged in successfully!",
+                  code : 200,
+                  token : data.Token,
+                  IdentityId : data.IdentityId
+                };
+                return cb(null, response);
+              }
+              //fn(null, data.IdentityId, data.Token); // successful response
+            });
         }
       });
     }
